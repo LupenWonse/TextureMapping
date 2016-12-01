@@ -6,6 +6,7 @@ var NumVertices  = 36;
 
 var points = [];
 var colors = [];
+var texCoordsArray = [ ];
 
 var xAxis = 0;
 var yAxis = 1;
@@ -23,7 +24,7 @@ window.onload = function init()
     gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
-    colorCube();
+    colorCube();    
 
     gl.viewport( 0, 0, canvas.width, canvas.height );
     gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
@@ -51,6 +52,14 @@ window.onload = function init()
     var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 3, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
+    
+    var tBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, tBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(texCoordsArray), gl.STATIC_DRAW);
+    
+    var vTexCoord = gl.getAttribLocation(program, "vTexCoord");
+    gl.vertexAttribPointer(vTexCoord, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vTexCoord);
 
     thetaLoc = gl.getUniformLocation(program, "theta"); 
     
@@ -66,9 +75,6 @@ window.onload = function init()
         axis = zAxis;
     };
     
-    // Create the texture
-    var cbTexture = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, cbTexture);
     
     var texSize = 64;
     var numRows = 8;
@@ -86,12 +92,22 @@ window.onload = function init()
             myTexels[4*i*texSize+4*j] = c;
             myTexels[4*i*texSize+4*j+1] = c;
             myTexels[4*i*texSize+4*j+2] = c;
-            myTexels[4*i*texSize+4*j+3] + 255;
+            myTexels[4*i*texSize+4*j+3] = 255;
         }
     }
         
+    var texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 0);
+    console.log(myTexels);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, texSize, texSize, 0, gl.RGBA, gl.UNSIGNED_BYTE, myTexels);
+    
+    
+    
+    console.log(texCoordsArray);
     render();
+
+
 }
 
 function colorCube()
@@ -127,6 +143,15 @@ function quad(a, b, c, d)
         [ 1.0, 1.0, 1.0, 1.0 ],  // white
         [ 0.0, 1.0, 1.0, 1.0 ]   // cyan
     ];
+    
+        var texCoord = [
+        vec2(0, 0),
+        vec2(0, 1),
+        vec2(1, 1),
+        vec2(0, 0),
+        vec2(1, 1),
+        vec2(1, 0)
+    ];
 
     // We need to parition the quad into two triangles in order for
     // WebGL to be able to render it.  In this case, we create two
@@ -139,7 +164,7 @@ function quad(a, b, c, d)
     for ( var i = 0; i < indices.length; ++i ) {
         points.push( vertices[indices[i]] );
         colors.push( vertexColors[indices[i]] );
-    
+        texCoordsArray.push(texCoord[i]);
         // for solid colored faces use 
         //colors.push(vertexColors[a]);
         
