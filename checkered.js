@@ -52,7 +52,7 @@ window.onload = function init()
     var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 3, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
-    
+    // Setup texture Coordinate buffer
     var tBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, tBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(texCoordsArray), gl.STATIC_DRAW);
@@ -75,11 +75,11 @@ window.onload = function init()
         axis = zAxis;
     };
     
-    
+    // Start creating the texture array
     var texSize = 64;
     var numRows = 8;
     var numCols = 8;
-    
+    // Create the checkered pattern
     var myTexels = new Uint8Array(4*texSize*texSize);
     
     for (var i = 0; i < texSize; i++){
@@ -95,9 +95,7 @@ window.onload = function init()
             myTexels[4*i*texSize+4*j+3] = 255;
         }
     }
-    
-
-        
+    // Setup the texture in the WebGl
     var texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
@@ -107,8 +105,7 @@ window.onload = function init()
     gl.activeTexture(gl.TEXTURE0);
     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 0);
     
-    
-    console.log(texCoordsArray);
+    // Start rendering
     render();
 
 
@@ -148,6 +145,7 @@ function quad(a, b, c, d)
         [ 0.0, 1.0, 1.0, 1.0 ]   // cyan
     ];
     
+    // Text coordinates for all the vertices
         var texCoord = [
         vec2(0, 0),
         vec2(0, 1),
@@ -182,19 +180,8 @@ function render()
     theta[axis] += 2.0;
     gl.uniform3fv(thetaLoc, theta);
 
-    gl.drawArrays( gl.TRIANGLES, 0, 6 );
-    
-    gl.drawArrays( gl.TRIANGLES, 6, 6 );
-    
-    gl.drawArrays( gl.TRIANGLES, 12, 6 );
-    
-    gl.drawArrays( gl.TRIANGLES, 18, 6 );
-    
-    gl.drawArrays( gl.TRIANGLES, 24, 6 );
-    
-    gl.drawArrays( gl.TRIANGLES, 30, 6 );
-
-
-    requestAnimFrame( render );
+    // Draw the cube
+    gl.drawArrays( gl.TRIANGLES, 0, 36 );
+    requestAnimationFrame( render );
 }
 

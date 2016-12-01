@@ -74,85 +74,69 @@ window.onload = function init()
     document.getElementById( "zButton" ).onclick = function () {
         axis = zAxis;
     };
+
     
-    
-    var texSize = 64;
-    var numRows = 8;
-    var numCols = 8;
-    
+    // Load the images into memory
     var image1 = document.getElementById("img1");
     var image2 = document.getElementById("img2");
     var image3 = document.getElementById("img3");
     var image4 = document.getElementById("img4");
     var image5 = document.getElementById("img5");
     var image6 = document.getElementById("img6");
-    //var image = new Image();
     
-        var texture1 = gl.createTexture();
-        gl.activeTexture(gl.TEXTURE0);      
-        gl.bindTexture(gl.TEXTURE_2D, texture1);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image1);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    
-        var texture2 = gl.createTexture();
-        gl.activeTexture(gl.TEXTURE1);  
-        gl.bindTexture(gl.TEXTURE_2D, texture2);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image2);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    
-        var texture3 = gl.createTexture();
-        gl.activeTexture(gl.TEXTURE2);  
-        gl.bindTexture(gl.TEXTURE_2D, texture3);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image3);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    
-        var texture4 = gl.createTexture();
-        gl.activeTexture(gl.TEXTURE3);      
-        gl.bindTexture(gl.TEXTURE_2D, texture4);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image4);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    
-        var texture5 = gl.createTexture();
-        gl.activeTexture(gl.TEXTURE4);  
-        gl.bindTexture(gl.TEXTURE_2D, texture5);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image5);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    
-        var texture6 = gl.createTexture();
-        gl.activeTexture(gl.TEXTURE5);  
-        gl.bindTexture(gl.TEXTURE_2D, texture6);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image6);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-      
+    // Each image is loaded into a texture unit by setting the active unit
+    // binding the texture
+    // and sending the image data along texture parameters
+    var texture1 = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE0);      
+    gl.bindTexture(gl.TEXTURE_2D, texture1);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image1);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
-        
-        render();
-    
-    //image.src = "img1.png";
-    
+    var texture2 = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE1);  
+    gl.bindTexture(gl.TEXTURE_2D, texture2);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image2);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
-    
+    var texture3 = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE2);  
+    gl.bindTexture(gl.TEXTURE_2D, texture3);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image3);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
-        
-   
-    
-    
-    console.log(texCoordsArray);
-    
+    var texture4 = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE3);      
+    gl.bindTexture(gl.TEXTURE_2D, texture4);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image4);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
+    var texture5 = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE4);  
+    gl.bindTexture(gl.TEXTURE_2D, texture5);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image5);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
+    var texture6 = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE5);  
+    gl.bindTexture(gl.TEXTURE_2D, texture6);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image6);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    
+    // Start rendering
+    render();
 }
 
 function colorCube()
@@ -188,7 +172,7 @@ function quad(a, b, c, d)
         [ 1.0, 1.0, 1.0, 1.0 ],  // white
         [ 0.0, 1.0, 1.0, 1.0 ]   // cyan
     ];
-    
+    // Texture coordinates for each vertex
         var texCoord = [
         vec2(0, 0),
         vec2(0, 1),
@@ -210,9 +194,6 @@ function quad(a, b, c, d)
         points.push( vertices[indices[i]] );
         colors.push( vertexColors[indices[i]] );
         texCoordsArray.push(texCoord[i]);
-        // for solid colored faces use 
-        //colors.push(vertexColors[a]);
-        
     }
 }
 
@@ -223,21 +204,23 @@ function render()
     theta[axis] += 2.0;
     gl.uniform3fv(thetaLoc, theta);
 
+    // Change the texture stored in the sampler for each  face of the cube
+    // and draw one face at a time
     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 0);
     gl.drawArrays( gl.TRIANGLES, 0, 6 );
-    
+    // Repeat for all faces
     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 1);
     gl.drawArrays( gl.TRIANGLES, 6, 6 );
-     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 2);
+    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 2);
     gl.drawArrays( gl.TRIANGLES, 12, 6 );
-     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 3);
+    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 3);
     gl.drawArrays( gl.TRIANGLES, 18, 6 );
-     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 4);
+    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 4);
     gl.drawArrays( gl.TRIANGLES, 24, 6 );
-     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 5);
+    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 5);
     gl.drawArrays( gl.TRIANGLES, 30, 6 );
 
-
+    //Redraw
     requestAnimFrame( render );
 }
 
