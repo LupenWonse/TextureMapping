@@ -34,7 +34,7 @@ window.onload = function init()
     //
     //  Load shaders and initialize attribute buffers
     //
-    var program = initShaders( gl, "vertex-shader", "fragment-shader" );
+    program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
     
     var cBuffer = gl.createBuffer();
@@ -80,49 +80,77 @@ window.onload = function init()
     var numRows = 8;
     var numCols = 8;
     
-    var myTexels = new Uint8Array(4*texSize*texSize);
+    var image1 = document.getElementById("img1");
+    var image2 = document.getElementById("img2");
+    var image3 = document.getElementById("img3");
+    var image4 = document.getElementById("img4");
+    var image5 = document.getElementById("img5");
+    var image6 = document.getElementById("img6");
+    //var image = new Image();
     
-    for (var i = 0; i < texSize; i++){
-        for (var j = 0; j < texSize; j++){
-            var patchx = Math.floor(i/(texSize/numRows));
-            var patchy = Math.floor(j/(texSize/numCols));
-            
-            var c = (patchx%2 ^ patchy%2 ? 255 : 0);
-            
-            myTexels[4*i*texSize+4*j] = c;
-            myTexels[4*i*texSize+4*j+1] = c;
-            myTexels[4*i*texSize+4*j+2] = c;
-            myTexels[4*i*texSize+4*j+3] = 255;
-        }
-    }
-     for (var i = 0; i < texSize; i++){
-        for (var j = 0; j < texSize; j++){
-            var patchx = Math.floor(i/(texSize/numRows));
-            var patchy = Math.floor(j/(texSize/numCols));
-            
-            var c = (patchx%2 ^ patchy%2 ? 255 : 0);
-            
-            myTexels[4*i*texSize+4*j] = c;
-            myTexels[4*i*texSize+4*j+1] = c;
-            myTexels[4*i*texSize+4*j+2] = c;
-            myTexels[4*i*texSize+4*j+3] = 255;
-        }
-    }
+        var texture1 = gl.createTexture();
+        gl.activeTexture(gl.TEXTURE0);      
+        gl.bindTexture(gl.TEXTURE_2D, texture1);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image1);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    
+        var texture2 = gl.createTexture();
+        gl.activeTexture(gl.TEXTURE1);  
+        gl.bindTexture(gl.TEXTURE_2D, texture2);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image2);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    
+        var texture3 = gl.createTexture();
+        gl.activeTexture(gl.TEXTURE2);  
+        gl.bindTexture(gl.TEXTURE_2D, texture3);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image3);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    
+        var texture4 = gl.createTexture();
+        gl.activeTexture(gl.TEXTURE3);      
+        gl.bindTexture(gl.TEXTURE_2D, texture4);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image4);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    
+        var texture5 = gl.createTexture();
+        gl.activeTexture(gl.TEXTURE4);  
+        gl.bindTexture(gl.TEXTURE_2D, texture5);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image5);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    
+        var texture6 = gl.createTexture();
+        gl.activeTexture(gl.TEXTURE5);  
+        gl.bindTexture(gl.TEXTURE_2D, texture6);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image6);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      
+
+        
+        render();
+    
+    //image.src = "img1.png";
+    
+
     
 
         
-    var texture = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, texSize, texSize, 0, gl.RGBA, gl.UNSIGNED_BYTE, myTexels);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.activeTexture(gl.TEXTURE0);
-    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 0);
+   
     
     
     console.log(texCoordsArray);
-    render();
+    
 
 
 }
@@ -195,16 +223,18 @@ function render()
     theta[axis] += 2.0;
     gl.uniform3fv(thetaLoc, theta);
 
+    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 0);
     gl.drawArrays( gl.TRIANGLES, 0, 6 );
     
+    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 1);
     gl.drawArrays( gl.TRIANGLES, 6, 6 );
-    
+     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 2);
     gl.drawArrays( gl.TRIANGLES, 12, 6 );
-    
+     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 3);
     gl.drawArrays( gl.TRIANGLES, 18, 6 );
-    
+     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 4);
     gl.drawArrays( gl.TRIANGLES, 24, 6 );
-    
+     gl.uniform1i(gl.getUniformLocation(program, "texMap"), 5);
     gl.drawArrays( gl.TRIANGLES, 30, 6 );
 
 

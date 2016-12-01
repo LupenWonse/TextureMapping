@@ -52,17 +52,17 @@ uniform sampler2D texMap;
 void
 main()
 {
-    gl_FragColor = fColor * texture2D(texMap, fTexCoord);
+    gl_FragColor = texture2D(texMap, fTexCoord);
 }
 </script>
 
 <script type="text/javascript" src="./common/webgl-utils.js"></script>
 <script type="text/javascript" src="./common/initShaders.js"></script>
 <script type="text/javascript" src="./common/MV.js"></script>
-<script type="text/javascript" src="cube.js"></script>
+<script type="text/javascript" src="sixsided.js"></script>
 
 <body>
-<canvas id="gl-canvas" width="512"" height="512">
+<canvas id="gl-canvas" width="512" height="512">
 Oops ... your browser doesn't support the HTML5 canvas element
 </canvas>
    
@@ -71,6 +71,11 @@ Oops ... your browser doesn't support the HTML5 canvas element
 <button id= "xButton">Rotate X</button>
 <button id= "yButton">Rotate Y</button>
 <button id= "zButton">Rotate Z</button>
-
+        <img id="img1" src="img1.gif">
+    <img id="img2" src="img2.gif">
+    <img id="img3" src="img3.gif">
+    <img id="img4" src="img4.gif">
+    <img id="img5" src="img5.gif">
+    <img id="img6" src="img6.gif">
 </body>
 </html>
