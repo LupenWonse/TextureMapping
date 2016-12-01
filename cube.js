@@ -87,7 +87,7 @@ window.onload = function init()
             var patchx = Math.floor(i/(texSize/numRows));
             var patchy = Math.floor(j/(texSize/numCols));
             
-            var c = (patchx%2 ? 255 : 0);
+            var c = (patchx%2 ^ patchy%2 ? 255 : 0);
             
             myTexels[4*i*texSize+4*j] = c;
             myTexels[4*i*texSize+4*j+1] = c;
@@ -98,10 +98,12 @@ window.onload = function init()
         
     var texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 0);
-    console.log(myTexels);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, texSize, texSize, 0, gl.RGBA, gl.UNSIGNED_BYTE, myTexels);
-    
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 0);
     
     
     console.log(texCoordsArray);
