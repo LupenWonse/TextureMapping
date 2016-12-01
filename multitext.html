@@ -48,36 +48,44 @@ precision mediump float;
 varying vec4 fColor;
 varying vec2 fTexCoord;
 uniform sampler2D texMap;
+uniform sampler2D shadeMap;
 
 void
 main()
 {
-    gl_FragColor = fColor * texture2D(texMap, fTexCoord);
+    gl_FragColor = texture2D(texMap, fTexCoord) * texture2D(shadeMap, fTexCoord);
+    //gl_FragColor = texture2D(shadeMap, fTexCoord);
 }
 </script>
 
 <script type="text/javascript" src="./common/webgl-utils.js"></script>
 <script type="text/javascript" src="./common/initShaders.js"></script>
 <script type="text/javascript" src="./common/MV.js"></script>
-<script type="text/javascript" src="checkered.js"></script>
+<script type="text/javascript" src="multitext.js"></script>
 
-<body>
-    <center>
-    <h3>ITCS 6120 Computer Graphics</h3>
-    <h3>Texture Mapping - Checkered Texture Multiplied with Color</h3>
-    <p>Ahmet Gencoglu 800982227</p>
-        <a href="checkered.html">Part 1 - Simple Checkered Texture</a><br>
-        <a href="sixsided.html">Part 2 - Six Sided Cube</a><br>
-        <a href="multitext.html">Part 3 - Multi Texture</a><br>
-<canvas id="gl-canvas" width="512" height="512">
-Oops ... your browser doesn't support the HTML5 canvas element
-</canvas>
+    <body>
+        <center>
+            <h3>ITCS 6120 Computer Graphics</h3>
+            <h3>Texture Mapping - Part 3 - Checkered Texture Multiplied with Six Sided Textures</h3>
+            <p>Ahmet Gencoglu 800982227</p>
+            <a href="checkered.html">Part 1 - Simple Checkered Texture</a><br>
+            <a href="sixsided.html">Part 2 - Six Sided Cube</a><br>
+            <a href="multitext.html">Part 3 - Multi Texture</a><br>
+            <canvas id="gl-canvas" width="512" height="512">
+                Oops ... your browser doesn't support the HTML5 canvas element
+            </canvas>
+            <br/>
+            
+            <button id= "xButton">Rotate X</button>
+            <button id= "yButton">Rotate Y</button>
+            <button id= "zButton">Rotate Z</button><br><br>
 
-<br/>
-
-<button id= "xButton">Rotate X</button>
-<button id= "yButton">Rotate Y</button>
-<button id= "zButton">Rotate Z</button>
-           </center>
-</body>
+            <img id="img1" src="img1.gif">
+            <img id="img2" src="img2.gif">
+            <img id="img3" src="img3.gif">
+            <img id="img4" src="img4.gif">
+            <img id="img5" src="img5.gif">
+            <img id="img6" src="img6.gif">
+        </center>
+    </body>
 </html>
