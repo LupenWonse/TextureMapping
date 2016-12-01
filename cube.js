@@ -65,7 +65,32 @@ window.onload = function init()
     document.getElementById( "zButton" ).onclick = function () {
         axis = zAxis;
     };
+    
+    // Create the texture
+    var cbTexture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, cbTexture);
+    
+    var texSize = 64;
+    var numRows = 8;
+    var numCols = 8;
+    
+    var myTexels = new Uint8Array(4*texSize*texSize);
+    
+    for (var i = 0; i < texSize; i++){
+        for (var j = 0; j < texSize; j++){
+            var patchx = Math.floor(i/(texSize/numRows));
+            var patchy = Math.floor(j/(texSize/numCols));
+            
+            var c = (patchx%2 ? 255 : 0);
+            
+            myTexels[4*i*texSize+4*j] = c;
+            myTexels[4*i*texSize+4*j+1] = c;
+            myTexels[4*i*texSize+4*j+2] = c;
+            myTexels[4*i*texSize+4*j+3] + 255;
+        }
+    }
         
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, texSize, texSize, 0, gl.RGBA, gl.UNSIGNED_BYTE, myTexels);
     render();
 }
 
